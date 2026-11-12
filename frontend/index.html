@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Verify whether versioned public data dictionaries break an immutable compatibility policy on GenLayer.">
+<title>DataDrift — Dataset compatibility</title><link rel="stylesheet" href="./style.css">
+<script type="module" src="./app.js"></script>
+</head>
+<body>
+<header><a class="wordmark" href="./"><span aria-hidden="true">≋</span> DataDrift</a><a class="network" id="contract-link">Studionet · 61999 ↗</a></header>
+<main>
+<section class="intro">
+<p class="eyebrow">Dataset compatibility</p>
+<h1>Catch the changes<br>that break your data.</h1>
+<p class="lede">Compare two published data dictionaries against a locked policy. Inspect the fields that changed, the pinned evidence, and the finalized GenLayer decision.</p>
+</section>
+<section class="panel" aria-labelledby="compare-title">
+<div class="section-head"><div><p class="eyebrow">On-chain records</p><h2 id="compare-title">Inspect a comparison</h2></div><button id="demo" type="button" class="secondary">Load example</button></div>
+<form id="lookup"><label for="case-id">Comparison ID</label><div class="line"><input id="case-id" required pattern="[0-9a-f]{64}" placeholder="64-character comparison ID"><button>Read finalized state</button></div></form>
+<p id="case-status" class="status" role="status"></p>
+<div id="result" hidden>
+<div class="result-head"><div><p class="eyebrow" id="dataset"></p><h3 id="versions"></h3></div><strong id="outcome" class="badge"></strong></div>
+<div class="table-wrap"><table><thead><tr><th>Field</th><th>Finding</th><th>Baseline</th><th>Candidate</th></tr></thead><tbody id="findings"></tbody></table></div>
+<div id="evidence" class="sources"></div>
+<p id="policy-info"></p><p id="decision-hash" class="mono"></p><a id="example-tx" hidden>View assessment transaction ↗</a>
+</div>
+</section>
+<div class="grid">
+<section class="panel"><p class="eyebrow">Studio signing</p><h2>Prepare a write</h2><p>In GenLayer Studio, import this deployment by address using the file-down button in Contracts. Open Run and Debug, enter the prepared arguments in the matching method, and sign with the built-in account. Paste the transaction hash into the tracker.</p>
+<label for="method">Contract method</label><select id="method"><option value="register_policy">Register a policy</option><option value="open_comparison">Open a comparison</option><option value="assess">Assess a comparison</option></select>
+<form id="draft"><div id="fields"></div><button type="submit">Prepare arguments</button></form>
+<p role="status" id="draft-status" class="status"></p><pre id="arguments" hidden></pre>
+<div class="actions"><button type="button" id="copy" class="secondary" hidden>Copy arguments</button><a href="https://studio.genlayer.com/run-debug" target="_blank" rel="noreferrer">Open Studio ↗</a></div>
+</section>
+<section class="panel"><p class="eyebrow">Transaction lifecycle</p><h2>Track a transaction</h2><p>Follow submission, validator consensus, and finalization. Accepted decisions remain provisional.</p>
+<form id="tracker"><label for="tx-hash">Transaction hash</label><input id="tx-hash" required pattern="0x[0-9a-fA-F]{64}" placeholder="0x…"><button>Track transaction</button></form>
+<p id="tx-status" class="status" role="status"></p><a id="tx-link" hidden>View receipt in explorer ↗</a>
+</section>
+</div>
+</main><footer><span>DataDrift</span><a href="https://github.com/amzar1st/DataDrift-Verify-breaking-changes-in-public-datasets">Source and verification ↗</a></footer>
+</body></html>
