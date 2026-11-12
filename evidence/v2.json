@@ -1,0 +1,8 @@
+{
+  "dataset": "merchant_settlements",
+  "version": "v2",
+  "fields": {
+    "amount": {"type":"integer","unit":"USD_cent","nullable":false,"description":"Gross settlement amount."},
+    "settlement_id": {"type":"string","unit":"none","nullable":false,"description":"Unique settlement identifier."}
+  }
+}
