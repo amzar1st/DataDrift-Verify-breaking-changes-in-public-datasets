@@ -28,7 +28,7 @@ def digest(body):
 
 def require(condition, message):
     if not condition:
-        raise gl.UserError(message)
+        raise gl.vm.UserError(message)
 
 
 def decode(raw):
@@ -103,7 +103,7 @@ def compare(old, new, rules, classify):
 def download(ref):
     response = gl.nondet.web.get(ref["url"])
     body = response.body
-    if response.status_code != 200 or not 1 <= len(body) <= 16384 or digest(body) != ref["sha256"]:
+    if not 1 <= len(body) <= 16384 or digest(body) != ref["sha256"]:
         raise ValueError("Evidence could not be verified")
     return body
 
@@ -191,17 +191,18 @@ class DataDrift(gl.Contract):
             try:
                 return review(record, rules)
             except Exception:
-                raise gl.UserError("Review unavailable. Check pinned evidence and retry.")
+                return "EVIDENCE_UNAVAILABLE"
 
         def validator(proposal):
             if not isinstance(proposal, gl.vm.Return):
                 return False
             try:
-                return proposal.calldata == review(record, rules)
+                return proposal.calldata == leader()
             except Exception:
                 return False
 
         result = gl.vm.run_nondet_unsafe(leader, validator)
+        require(result != "EVIDENCE_UNAVAILABLE", "Review unavailable. Check pinned evidence and retry.")
         record["status"] = "ASSESSED"
         record["decision"] = decode(result)
         record["decision_hash"] = digest((case_id + ":" + result).encode())

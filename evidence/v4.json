@@ -1,0 +1,8 @@
+{
+  "dataset": "merchant_settlements",
+  "version": "v4",
+  "fields": {
+    "amount": {"type":"integer","unit":"USD_cent","nullable":false,"description":"Net settlement amount after fees are deducted."},
+    "settlement_id": {"type":"string","unit":"none","nullable":false,"description":"Unique settlement identifier."}
+  }
+}
